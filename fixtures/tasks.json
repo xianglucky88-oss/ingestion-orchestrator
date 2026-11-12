@@ -1,0 +1,20 @@
+[
+  {
+    "task_id": "telemetry-1",
+    "priority": 10,
+    "mode": "incremental",
+    "fail_until": 1
+  },
+  {
+    "task_id": "catalog-1",
+    "priority": 5,
+    "mode": "full",
+    "fail_until": 0
+  },
+  {
+    "task_id": "rpa-1",
+    "priority": 1,
+    "mode": "backfill",
+    "fail_until": 2
+  }
+]
