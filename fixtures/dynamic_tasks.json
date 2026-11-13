@@ -1,0 +1,92 @@
+[
+  {
+    "task_id": "catalog-full",
+    "priority": 10,
+    "mode": "full",
+    "duration": 6,
+    "resource_group": "catalog"
+  },
+  {
+    "task_id": "telemetry-a",
+    "priority": 7,
+    "mode": "incremental",
+    "duration": 2,
+    "fail_until": 1,
+    "retry_backoff": 2,
+    "resource_group": "telemetry"
+  },
+  {
+    "task_id": "telemetry-b",
+    "priority": 5,
+    "mode": "incremental",
+    "duration": 3,
+    "resource_group": "telemetry"
+  },
+  {
+    "task_id": "archive",
+    "priority": 1,
+    "mode": "backfill",
+    "duration": 5,
+    "resource_group": "default"
+  },
+  {
+    "task_id": "legacy-extract",
+    "priority": 4,
+    "mode": "full",
+    "duration": 1,
+    "fail_until": 99,
+    "retry_backoff": 1,
+    "resource_group": "legacy"
+  },
+  {
+    "task_id": "legacy-report",
+    "priority": 2,
+    "mode": "incremental",
+    "duration": 1,
+    "requires": [
+      "legacy-extract"
+    ],
+    "resource_group": "merge"
+  },
+  {
+    "task_id": "catalog-inc",
+    "priority": 8,
+    "mode": "incremental",
+    "duration": 2,
+    "requires": [
+      "catalog-full"
+    ],
+    "resource_group": "catalog"
+  },
+  {
+    "task_id": "merged",
+    "priority": 6,
+    "mode": "incremental",
+    "duration": 2,
+    "requires": [
+      "telemetry-a",
+      "catalog-inc"
+    ],
+    "resource_group": "merge"
+  },
+  {
+    "task_id": "report",
+    "priority": 3,
+    "mode": "backfill",
+    "duration": 1,
+    "requires": [
+      "merged"
+    ],
+    "resource_group": "merge"
+  },
+  {
+    "task_id": "downstream-report",
+    "priority": 1,
+    "mode": "incremental",
+    "duration": 1,
+    "requires": [
+      "report"
+    ],
+    "resource_group": "merge"
+  }
+]

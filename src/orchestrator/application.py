@@ -1,13 +1,24 @@
-from .pipeline import OrchestrationPipeline
-from .scheduler import PriorityScheduler, RetryExecutor
-from .sources import TaskSource
-from .storage import RunStore
+from .pipeline import run_files
+from .models import RunConfig
 
 
-def run_fixture(fixture: str, database: str, max_retries: int = 2) -> dict[str, int]:
-    store = RunStore(database)
-    try:
-        tasks = TaskSource().read(fixture)
-        return OrchestrationPipeline(tasks, PriorityScheduler(), RetryExecutor(max_retries), store).run()
-    finally:
-        store.close()
+def run_fixture(
+    fixture: str,
+    database: str,
+    max_retries: int = 2,
+    *,
+    config: RunConfig | None = None,
+    config_path: str | None = None,
+) -> dict[str, int]:
+    """Backward-compatible entry point used by tests and the CLI.
+
+    ``config``/``config_path`` are optional: without them a legacy fixture runs
+    with the default limits exactly as before.
+    """
+    return run_files(
+        fixture,
+        database,
+        config=config,
+        config_path=config_path,
+        max_retries=max_retries,
+    )

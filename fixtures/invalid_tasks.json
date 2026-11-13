@@ -1,0 +1,48 @@
+[
+  {
+    "task_id": "cycle-a",
+    "priority": 1,
+    "duration": 1,
+    "requires": [
+      "cycle-b"
+    ]
+  },
+  {
+    "task_id": "cycle-b",
+    "priority": 1,
+    "duration": 1,
+    "requires": [
+      "cycle-a"
+    ]
+  },
+  {
+    "task_id": "missing-ref",
+    "priority": 1,
+    "duration": 1,
+    "requires": [
+      "ghost-source"
+    ]
+  },
+  {
+    "task_id": "after-missing",
+    "priority": 1,
+    "duration": 1,
+    "requires": [
+      "missing-ref"
+    ]
+  },
+  {
+    "task_id": "after-cycle",
+    "priority": 1,
+    "duration": 1,
+    "requires": [
+      "cycle-a"
+    ]
+  },
+  {
+    "task_id": "healthy",
+    "priority": 5,
+    "duration": 1,
+    "resource_group": "default"
+  }
+]

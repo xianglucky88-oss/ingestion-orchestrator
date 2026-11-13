@@ -1,0 +1,16 @@
+{
+  "max_parallel": 3,
+  "group_limits": {
+    "catalog": 1,
+    "telemetry": 2,
+    "merge": 1,
+    "legacy": 1,
+    "default": 2
+  },
+  "retry_backoff": 1,
+  "backoff_multiplier": 2,
+  "aging_step": 1,
+  "cancellations": {
+    "report": 10
+  }
+}
